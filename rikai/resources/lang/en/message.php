@@ -303,5 +303,18 @@
         'order-done'=>'Order done',
         'export'=>'Export',
         'exportorder'=>'Export buy book',
+        'NewReview'=>'New Review',
+        'Content'=>'Content',
+        'review_by_you'=>'Has written a review on a book that has been reviewed by you',
+        'NewComment'=>'New Comment',
+        'comment_by_you'=>'Has written a comment on a book that has been comment by you',
+        'Parent_Category'=>'Parent Category',
+        'None'=>'None',
+        'High epic fantasy'=>'High epic fantasy',
+        'Magical realism'=>'Magical realism',
+        'Literary Fiction good' => 'Literary Fiction good',
+        'cooking'=>'cooking',
+        'sql'=>'sql',
+
     ]
 ?>

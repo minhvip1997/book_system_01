@@ -43,7 +43,7 @@ class BookController extends Controller
     public function create()
     {
         //
-        $categorys = Category::all();
+        $categorys = Category::where('parent_id','=','0')->get();
         return view('admin.book.add',compact('categorys'));
     }
 

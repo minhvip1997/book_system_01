@@ -26,6 +26,15 @@ $(function(){
 			function(){
 				$(this).children(".dropdown-menu").fadeOut(300);
 			}
+		);
+		var dropdown = $( ".dropdownfirst");
+		dropdown.hover(
+			function(){
+				$(this).children(".dropdown-menu").fadeIn(300);
+			},
+			function(){
+				$(this).children(".dropdown-menu").fadeOut(300);
+			}
 		);	   
 	}else{
 		var dropdownClick = $(".navbar a.dropdown-toggle");

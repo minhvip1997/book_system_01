@@ -61,8 +61,11 @@
 <div class="d-flex align-items-center pt-20 pb-20">
   <span class="dot-indicator bg-primary"></span>
   <a class="btn btn-primary" href="{{route('chart.export')}}">{{__('message.export')}}</a>
+<<<<<<< HEAD
   <span class="dot-indicator bg-primary"></span>
   <a class="btn btn-danger" href="{{route('chart.exportorder')}}">{{__('message.exportorder')}}</a>
+=======
+>>>>>>> f00af71 (create multiple level category)
 </div>
 <div class="row">
   <div class="col-md-12 grid-margin">

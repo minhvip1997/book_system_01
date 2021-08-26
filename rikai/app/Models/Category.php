@@ -14,6 +14,7 @@ class Category extends Model
     protected $fillable = [
         'description',
         'title',
+        'parent_id',
     ];
 
     public function bookCategory() {
@@ -22,5 +23,20 @@ class Category extends Model
 
     public function books(){
         return $this->belongsToMany(Book::class);
+    }
+
+    public function subcategory()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    public function allChilds()
+    {
+        return $this->hasManyThrough(Book_Category::class, self::class, 'parent_id', 'category_id');
     }
 }

@@ -8,23 +8,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\BuyBook;
-use App\Models\Cart;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ReceiveReview;
+use App\Models\Review;
+use App\Models\User;
 
-class BuyBookJob implements ShouldQueue
+class NewReviewJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $cart;
+    protected $review;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Cart $cart)
+    public function __construct(Review $review)
     {
         //
-        $this->cart = $cart;
+        $this->review = $review;
     }
 
     /**
@@ -34,9 +36,11 @@ class BuyBookJob implements ShouldQueue
      */
     public function handle()
     {
-        //
-        $email = new BuyBook($this->cart);
-        Mail::to($this->cart->user->email)->queue($email);
+        $users = User::newReview($this->review)->get();
+            foreach ($users as $user) {
+                $email = new ReceiveReview($this->review);
+                Mail::to($user->email)->queue($email);
+            }
         return $this->release(2);
     }
 }

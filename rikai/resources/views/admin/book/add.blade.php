@@ -26,7 +26,12 @@
                   <label for="exampleSelectGender">{{__('message.Name_Category')}}</label>
                   <select class="form-control" name="category_id[]" id="categorySelect2">
                      @foreach($categorys as $category)
-                     <option value="{{$category->id}}">{{$category->title}}</option>
+                     <optgroup label="{{$category->title}}">
+                        @foreach($category->subcategory()->get() as $cat)
+                        <option value="{{$cat->id}}">{{$cat->title}}</option>
+                        @endforeach
+                     </optgroup>
+                     <!-- <option value="{{$category->id}}">{{$category->title}}</option> -->
                      @endforeach
                   </select>
                </div>

@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 class StatisticExport implements FromCollection,WithHeadings, ShouldQueue
 {
     use Exportable;
+
     public function headings(): array
     {
         return [

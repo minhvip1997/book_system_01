@@ -11,6 +11,7 @@
                      <tr>
                         <th>{{__('message.Id')}}</th>
                         <th>{{__('message.Name_Category')}}</th>
+                        <th>{{__('message.Parent_Category')}}</th>
                         <th>{{__('message.Action')}}</th>
                      </tr>
                   </thead>
@@ -19,6 +20,13 @@
                      <tr>
                         <td>{{$category->id}}</td>
                         <td>{{$category->title}}</td>
+                        <td>
+                           @if(($category->parent_id != 0))
+                              {{$category->parent()->value('title')}}
+                           @else
+                              {{__('message.None')}}
+                           @endif
+                        </td>
                         <td>
                            <a href="{{route('category.edit',[$category->id])}}">
                            <label class="badge badge-info">{{__('message.Edit')}}</label>

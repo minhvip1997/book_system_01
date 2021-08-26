@@ -11,6 +11,7 @@ use App\Models\Book_Category;
 use App\Models\Category;
 use App\Models\User;
 use App\Http\Requests\ReviewFormRequest;
+use App\Jobs\NewReviewJob;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -53,6 +54,7 @@ class ReviewController extends Controller
         $review = Review::create($data);
         $this->updateRate($data['book_id']);
         if ($review){
+            dispatch(new NewReviewJob($review));
             $message = 'message.add_review_success';
             return redirect()->route('book.show',[$review->book_id])->withMessage(__($message));
         } else {

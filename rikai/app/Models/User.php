@@ -101,4 +101,20 @@ class User extends Authenticatable
     public function scopeGetAllUsers($query){
         return $query->where('role','!=','admin')->paginate(5);
     }
+
+    public function scopeNewReview($query,Review $review){
+        return $query->join('review','users.id','=','review.user_id')
+        ->join('book','book.id','=','review.book_id')
+        ->where('users.id','!=',$review->user->id)
+        ->select('users.name', 'users.email')
+        ->groupBy('users.id');
+    }
+
+    public function scopeNewComment($query,Comment $comment){
+        return $query->join('comment','comment.user_id','=','users.id')
+        ->whereNotIn('users.id',[$comment->user->id,$comment->review->user->id])
+        ->where('comment.review_id',$comment->review_id)
+        ->select('users.name', 'users.email')
+        ->groupBy('users.id');
+    }
 }

@@ -19,6 +19,17 @@
                   <label for="exampleTextarea1">{{__('message.Description')}}</label>
                   <textarea class="form-control" name="description" id="exampleTextarea1" rows="4"></textarea>
                </div>
+               <div class="form-group">
+                  <label for="exampleSelectGender">{{__('message.Parent_Category')}}</label>
+                  <select class="form-control" name="parent_id" id="categorySelect2">
+                  <option value="0">{{__('message.None')}}</option>
+                     @if($categories)
+                        @foreach($categories as $category)
+                        <option value="{{$category->id}}">{{$category->title}}</option>
+                        @endforeach
+                     @endif
+                  </select>
+               </div>
                <button type="submit" class="btn btn-primary mr-2">{{__('message.submit')}}</button>
             </form>
          </div>

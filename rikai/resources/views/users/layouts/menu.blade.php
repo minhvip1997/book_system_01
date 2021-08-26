@@ -25,12 +25,12 @@
                      <li><a href="{{route('home.index')}}">{{__('message.Home')}} </a></li>
                   </ul>
                </li>
-               <li class="dropdown first">
+               <li class="dropdownfirst">
                   <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
                   {{__('message.Category_Book')}} <i class="fa fa-angle-down" aria-hidden="true"></i>
                   </a>
                   <ul class="dropdown-menu level1">
-                     {{categorybook()}}
+                     {{allCategorybook()}}
                      <li><a href="{{route('book.index')}}">{{__('message.all_book')}}</a></li>
                   </ul>
                </li>

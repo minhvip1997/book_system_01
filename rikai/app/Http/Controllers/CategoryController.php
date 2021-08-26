@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Book_Category;
+use App\Models\Book;
 
 class CategoryController extends Controller
 {
@@ -59,7 +61,12 @@ class CategoryController extends Controller
     {
         //
         $category = Category::find($categoryid);
+        $bookcategory = $category->allChilds()->value('book_id');
         $books = $category->books()->paginate(10);
+        if($bookcategory){
+            $subbook = Book::find($bookcategory);
+            $books->push($subbook);
+        }
         return view('users.book.list',compact('books'));
     }
 

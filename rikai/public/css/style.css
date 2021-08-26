@@ -8551,4 +8551,60 @@ li p{
   height: 204px;
   object-fit: scale-down;
 }
-
+/*-------------------*/
+.dropdownfirst {
+  display: block;
+  position: relative;
+  float: left;
+  line-height: 30px;
+  color: #010911;
+}
+.dropdownfirst t a{
+  margin: 10px;
+  color: #101818;
+  text-decoration: none;
+  color: #020d18;
+}
+.dropdownfirst :hover > ul {
+  display:block;
+  position:absolute;
+  color: #020d18;
+}
+.child {
+  display: none;
+}
+.child li {
+  background-color: #ffffff;
+  line-height: 30px;
+  border-bottom:#CCC 1px solid;
+  border-right:#CCC 1px solid; width:100%;}
+.child li a{
+  color: #0a4b8c;
+}
+ul{
+  list-style: none;
+  margin: 0;
+  padding: 0px;
+  min-width:10em;
+}
+ul ul ul{
+  left: 100%;
+  top: 0;
+  margin-left:1px;
+}
+li:hover {
+  background-color: #95B4CA;
+}
+.dropdownfirst li:hover {
+  background-color: #588bc2;
+  cursor: pointer;
+  color: #020d18;
+}
+.expand{
+  font-size:12px;
+  float:right;
+  margin-right:5px;
+}
+.dropdownfirst .dropdown-menu.level1 li a {
+  color: #020d18;
+}

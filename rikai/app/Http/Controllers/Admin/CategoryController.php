@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -29,7 +30,8 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.category.add');
+        $categories = Category::where('parent_id','=','0')->get();
+        return view('admin.category.add',compact('categories'));
     }
 
     /**
@@ -74,7 +76,8 @@ class CategoryController extends Controller
         //
         $category = $this->findCategory($categoryid);
         if($category){
-            return view('admin.category.edit',compact('category'));
+            $categories = Category::where('parent_id','=','0')->where('id', '!=', $category->id)->orderby('title', 'asc')->get();
+            return view('admin.category.edit',compact('category','categories'));
         }else{
             $errors = 'message.no_category';
             return redirect()->route('homeadmin.index')->withErrors(__($errors));
@@ -114,6 +117,20 @@ class CategoryController extends Controller
     {
         //
         $category = $this->findCategory($categoryid);
+        if(count($category->subcategory)){
+            $subcategories = $category->subcategory;
+            foreach($subcategories as $cat)
+            {
+                DB::beginTransaction();
+                try{
+                    $cat = DB::table('category')->where('id','=',$cat->id)->delete();
+                    DB::commit();
+                }catch(Exception $e){
+                    DB::rollBack();
+                    throw new Exception($e->getMessage());
+                }
+            }
+        }
         $category->delete();
         $message = 'message.delete_category_success';
         return redirect()->route('category.index')->withMessage(__($message));

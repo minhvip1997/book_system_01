@@ -1,4 +1,5 @@
 <?php
+use App\Models\Category;
  function rateform(){
     $count = 11;
     for($i=1;$i<$count;$i++){
@@ -47,6 +48,23 @@
    foreach($categorys as $category){
    echo '<li><a href="'.route('categoryuser.edit',[$category->id]).'">'.__('message.'.$category->title).'</a></li>';
 
+   }
+ }
+
+ function allCategorybook(){
+   $categorys = Category::where('parent_id','=','0')->get();
+
+   foreach($categorys as $category){
+      echo  '<li class="dropdown">';
+      echo '<a href="'.route('categoryuser.edit',[$category->id]).'">'.__('message.'.$category->title).'<span class="expand">&raquo;</span>'.'</a>';
+      echo  '<ul class="child">';
+         foreach($category->subcategory()->get() as $cat){
+            echo  '<li class="dropdown">';
+            echo  '<a href="'.route('categoryuser.edit',[$cat->id]).'" nowrap>'.__('message.'.$cat->title).'</a><br>';
+            echo  '</li>';
+         }
+      echo  '</ul>';
+      echo  '</li>';
    }
  }
 ?>

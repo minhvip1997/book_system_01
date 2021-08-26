@@ -59,7 +59,6 @@ class Cart extends Model
         return $orders;
     }
 
-
     public static function countMonthOrders(){
         $countorders = Cart::whereYear('created_at', date('Y'))->whereMonth('created_at', date('m'))->count();
         $countordersdone = Cart::whereYear('updated_at', date('Y'))->whereMonth('updated_at', date('m'))->where('status', '=', CartStatus::DONE)->count();

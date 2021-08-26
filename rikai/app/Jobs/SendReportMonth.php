@@ -14,7 +14,9 @@ use App\Mail\ReportMonthMail;
 class SendReportMonth implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     protected $admins;
+
     /**
      * Create a new job instance.
      *

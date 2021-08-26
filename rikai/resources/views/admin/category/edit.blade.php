@@ -20,6 +20,17 @@
                   <label for="exampleTextarea1">{{__('message.Description')}}</label>
                   <textarea class="form-control" name="description" placeholder="{{$category->description}}" id="exampleTextarea1" rows="4">{{$category->description}}</textarea>
                </div>
+               <div class="form-group">
+                  <label for="exampleSelectGender">{{__('message.Parent_Category')}}</label>
+                  <select class="form-control" name="parent_id" id="categorySelect2">
+                  <option value="0">{{__('message.None')}}</option>
+                  @if($categories)
+                     @foreach($categories as $item)
+                        <option value="{{$item->id}}" @if($category->parent_id == $item->id ) selected @endif>{{$item->title}}</option>
+                     @endforeach
+                  @endif
+                  </select>
+               </div>
                <button type="submit" class="btn btn-primary mr-2">{{__('message.submit')}}</button>
             </form>
          </div>
