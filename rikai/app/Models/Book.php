@@ -6,10 +6,11 @@ use App\Models\Book_Category;
 use CartItem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory,SearchableTrait;
     protected $table = "book";
     public $timestamps = false;
     protected $fillable = [
@@ -20,6 +21,13 @@ class Book extends Model
         'num_of_page',
         'quantity',
         'price',
+    ];
+
+    protected $searchable = [
+        'columns' => [
+            'book.title' => 10,
+            'book.author' => 10,
+        ]
     ];
 
     public function cartItems() {

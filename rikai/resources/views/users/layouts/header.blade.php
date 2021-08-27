@@ -22,7 +22,7 @@
          </p>
       </div>
       @endif
-      <form method="get" id="searchForm" action="{{route('search')}}">
+      <form method="get" id="searchForm" action="{{route('full.text.search')}}">
          <div class="top-search">
             <input type="text" name="body" placeholder="{{__('message.Search_for_a_book')}}">
             <button class="btn-search custom-btn-search">{{ __('message.search') }}</button>

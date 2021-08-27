@@ -52,6 +52,7 @@ Route::get('/redirectgoogle', 'App\Http\Controllers\Auth\LoginController@redirec
 Route::get('/callbackgoogle', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
 Route::get('/redirectfacebook', 'App\Http\Controllers\FbController@redirectToFacebook')->name("login.facebook");
 Route::get('/callbackfacebook', 'App\Http\Controllers\FbController@facebookSignin');
+Route::get('full-text-search',[BookController1::class, 'fulltextsearch'])->name('full.text.search');
 
 
 

@@ -87,4 +87,10 @@ class BookController extends Controller
         $book = Book::find($bookId);
         return view('users.review.create',compact('book'));
     }
+
+    public function fulltextsearch(Request $request){
+        $books = Book::search($request->get('search'))->paginate(18);
+        $total = count($books);
+        return view('users.book.search',compact('books','total'));
+    }
 }
