@@ -48,6 +48,10 @@ Route::resource('categoryuser', CategoryController2::class);
 Route::resource('comment', CommentController1::class)->only('show');
 Auth::routes();
 Route::get('search', [BookController1::class, 'search'])->name('search');
+Route::get('/redirectgoogle', 'App\Http\Controllers\Auth\LoginController@redirectToProvider')->name("login.provider");
+Route::get('/callbackgoogle', 'App\Http\Controllers\Auth\LoginController@handleProviderCallback');
+Route::get('/redirectfacebook', 'App\Http\Controllers\FbController@redirectToFacebook')->name("login.facebook");
+Route::get('/callbackfacebook', 'App\Http\Controllers\FbController@facebookSignin');
 
 
 
