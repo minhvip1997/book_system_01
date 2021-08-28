@@ -80,6 +80,9 @@ Route::middleware(['users'])->group(function () {
     Route::resource('cartItem', CartItemController::class);
     Route::get('current_cart', [CartController::class, 'currentCart']);
     Route::get('cancel/{id}', [CartController::class, 'cancel']);
+    Route::post('hide/{id}', [ReviewController1::class, 'hidereview'])->name('review.hide');
+    Route::get('managercomment/{id}', [CommentController1::class, 'managercomment'])->name('comment.manager');
+    Route::post('hidecomment/{id}', [CommentController1::class, 'hidecomment'])->name('comment.hide');
 });
 
 

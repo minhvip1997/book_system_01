@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ReportMonth;
 use App\Exports\StatisticExport;
+use App\Exports\OrderStatistic;
 
 class ReportMonthMail extends Mailable
 {
@@ -33,10 +34,13 @@ class ReportMonthMail extends Mailable
     {
         // return $this->view('view.name');
         $date = date('m-Y');
-        Excel::store(new ReportMonth,'public/report-month-'.$date.'.xlsx');
-        $path = storage_path('app\public\report-month-'.$date.'.xlsx');
+        Excel::store(new StatisticExport,'public/report-statistic-month-'.$date.'.xlsx');
+        Excel::store(new OrderStatistic,'public/report-order-month-'.$date.'.xlsx');
+        $pathstatistic = storage_path('app\public\report-statistic-month-'.$date.'.xlsx');
+        $pathorder = storage_path('app\public\report-order-month-'.$date.'.xlsx');
         return $this->view('admin.email.report',['date'=> $date])
         ->subject(__('message.report-month, :date', ['date' => $date]))
-        ->attach($path);
+        ->attach($pathstatistic)
+        ->attach($pathorder);
     }
 }

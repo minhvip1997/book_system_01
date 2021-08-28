@@ -328,6 +328,18 @@
         'Literary Fiction good' => 'Văn hay',
         'cooking'=>'Nấu ăn',
         'sql'=>'Sql',
+        'month'=>'Tháng',
+        'reportEmail'=>'Gửi Email',
+        'dear'=>'Thân mến ',
+        'send-email-body'=>'Đây là email thông báo hàng tháng',
+        'hidereview'=>'Ẩn đánh giá',
+        'hidecomment'=>'Ẩn bình luận',
+        'ManagerReviews'=>'Quản lý đánh giá',
+        'managercomment'=>'Quản lý bình luận',
+        'hide_review_success'=>'Ẩn đánh giá thành công',
+        'show_review_success'=>'Mở đánh giá thành công',
+        'hide_comment_success'=>'Ẩn bình luận thành công',
+        'show_comment_success'=>'Mở bình luận thành công',
 
     ]
 ?>

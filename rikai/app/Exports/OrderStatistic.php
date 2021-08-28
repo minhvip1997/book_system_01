@@ -15,7 +15,7 @@ class OrderStatistic implements FromCollection,WithHeadings
         return [
             __('message.name'),
             __('message.Email_Address'),
-            __('message.Name_on_Card'),
+            __('message.Name_of_Card'),
             __('message.Credit_card_number'),
             __('message.total_price'),
         ];

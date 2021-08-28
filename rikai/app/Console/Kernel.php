@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('command:deleterequest')->lastDayOfMonth('23:59');
+        $schedule->command('command:SendReport')->everyMinute();
     }
 
     /**

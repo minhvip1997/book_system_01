@@ -17,9 +17,6 @@
                      <p>
                         {{$review->body}}
                      </p>
-                     @if(Auth::user()->role=='admin')
-                     <a class="rep-btn" href="{{route('comment.manager',[$review->id])}}">{{__('message.managercomment')}}</a>
-                     @endif
                   </div>
                   <!-- share link -->
                   <div class="flex-it share-tag">
@@ -35,13 +32,13 @@
                      <ul class="nav nav-pills">
                         <li role="presentation">
                            <a href="{{route('like.review',[$review->id])}}" class="like">{{__('message.Like')}}:
-                              {{$review->likeReviews()->count()}}
-                              <span class="fa fa-thumbs-up"></span>
+                           {{$review->likeReviews()->count()}}
+                           <span class="fa fa-thumbs-up"></span>
                            </a>
                         </li>
                         <li role="presentation">
                            <a href="{{route('unlike.review',[$review->id])}}" class="like">{{__('message.Unlike')}}:
-                              <span class="fa fa-thumbs-down"></span>
+                           <span class="fa fa-thumbs-down"></span>
                            </a>
                         </li>
                      </ul>
@@ -57,67 +54,31 @@
                   <div class="comments">
                      <h4>{{$totalcomment}} {{__('message.Comments')}}</h4>
                      @foreach($comments as $comment)
-                     @if($comment->approve == 0)
                      <div class="cmt-item flex-it">
                         <div class="author-infor width-100">
                            <div class="flex-it2">
                               <div>
                                  <h6><a href="#">
-                                       {{$comment->user()->value('name')}}
+                                    {{$comment->user()->value('name')}}
                                     </a>
                                  </h6>
                                  <span class="time"> {{$comment->created_at}}</span>
                               </div>
                               <div class="left-half">
-                                 <a class="rep-btn"
-                                    href="{{route('comment.edit',[$comment->id])}}">{{__('message.Edit')}}</a>
-                                 <input type="submit" class="deletecomment custom-input" value="{{__('message.Delete')}}"
-                                    form="delete-comment">
+                                 @if(Auth::user()->role=='admin')
+                                 <form action="{{route('comment.hide',[$comment->id])}}" class="hidereview" method="post">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input {{checkcommenthide($review)}} type="checkbox" name="approveval">
+                                    <input type="hidden" name="commentId" value="{{ $comment->id }}">
+                                    <input class="btn btn-primary" type="submit" value="{{__('message.hidecomment')}}">
+                                 </form>
+                                 @endif
                               </div>
                            </div>
                            <p>{{$comment->body}}</p>
-                           <div>
-                              <form action="{{url('comment/'.$comment->id)}}" class="user" id="delete-comment"
-                                 method="post">
-                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                 @method('DELETE')
-                              </form>
-                              @if(!Auth::guest())
-                              <ul class="nav nav-pills">
-                                 <li role="presentation">
-                                    <a href="{{route('like.comment',[$comment->id])}}" class="like">
-                                       {{ comment($comment) }}:
-                                       {{$comment->likeComments()->count()}}
-                                       <span class="fa fa-thumbs-up"></span>
-                                    </a>
-                                 </li>
-                                 <li role="presentation">
-                                    <a href="{{route('unlike.comment',[$comment->id])}}"
-                                       class="like">{{__('message.Unlike')}}:
-                                       <span class="fa fa-thumbs-down"></span>
-                                    </a>
-                                 </li>
-                              </ul>
-                              @endif
-                           </div>
                         </div>
                      </div>
-                     @endif
                      @endforeach
-                  </div>
-                  <div class="comment-form">
-                     <h4>{{__('message.Leave_a_comment')}}</h4>
-                     <form action="{{route('comment.store')}}" method="post">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="reviewid" value="{{ $review->id }}">
-                        <input type="hidden" name="bookid" value="{{ $book->id }}">
-                        <div class="row">
-                           <div class="col-md-12">
-                              <textarea name="body" id="" placeholder="{{__('message.Comments')}}"></textarea>
-                           </div>
-                        </div>
-                        <input class="submit" type="submit" value="{{__('message.save')}}">
-                     </form>
                   </div>
                   <!-- comment form -->
                </div>

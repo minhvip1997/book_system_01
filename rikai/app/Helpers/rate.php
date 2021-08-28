@@ -67,4 +67,16 @@ use App\Models\Category;
       echo  '</li>';
    }
  }
+
+ function checkreviewhide($review){
+   if($review->approve == 1){
+      echo "checked";
+   }
+ }
+
+ function checkcommenthide($comment){
+   if($comment->approve == 1){
+      echo "checked";
+   }
+ }
 ?>

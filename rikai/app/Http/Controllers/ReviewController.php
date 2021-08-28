@@ -208,4 +208,25 @@ class ReviewController extends Controller
         $book->rate = $bookreviews;
         $book->update();
     }
+
+    public function hidereview(Request $request,$reviewId){
+        $review = Review::find($reviewId);
+        if($review){
+            $approveval = $request->approveval;
+            if($approveval =='on'){
+                $approveval = 1;
+                $message = 'message.hide_review_success';
+
+            }else{
+                $approveval = 0;
+                $message = 'message.show_review_success';
+            }
+            $review->approve = $approveval;
+            $review->update();
+            return redirect()->route('book.show',[$review->book_id])->withMessage(__($message));
+        }else{
+            $errors = 'message.sufficient_permissions';
+            return redirect()->route('book.show',[$review->book_id])->withErrors(__($errors));
+        }
+    }
 }
