@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\TagBook;
 use App\Models\Review;
 use App\Models\Book_Category;
 use App\Models\Category;
 use App\Models\LikeReview;
 use App\Models\User;
+use App\Models\Tag;
 use App\Http\Requests\SearchFormRequest;
 use App\Models\Activity;
 use stdClass;
@@ -92,5 +94,24 @@ class BookController extends Controller
         $books = Book::search($request->get('search'))->paginate(18);
         $total = count($books);
         return view('users.book.search',compact('books','total'));
+    }
+
+    public function searchtag($tagid){
+        $tag = $this->findTag($tagid);
+        $tag->count = $tag->count+1;
+        $tag->update();
+        $books = Book::searchTag($tag->id)->paginate(18);
+        return view('users.book.list',compact('books'));
+
+    }
+
+    public function findTag($tagid){
+        $tag = Tag::find($tagid);
+        if($tag){
+            return $tag;
+        }else{
+            $errors = 'message.no_book';
+            return view('/')->withErrors(__($errors));
+        }
     }
 }

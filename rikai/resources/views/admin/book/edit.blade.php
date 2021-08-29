@@ -40,11 +40,11 @@
                </div>
                <div class="form-group">
                   <label for="exampleSelectGender">{{__('message.Name_Category')}}</label>
-                  <select class="form-control"  name="tag_id[]" id="categorySelect2">
+                  <select class="form-control"  name="tag_id[]" id="categorySelect2" multiple>
                   @foreach($tag as $tagchoose)
                      <option
-                     @foreach($book->tags as $tagbook)
-                        @if($tagbook->id == $tagchoose->id)
+                     @foreach($book->bookTag as $value)
+                        @if($value->tag_id == $tagchoose->id)
                            {{"selected"}}
                         @endif
                      @endforeach

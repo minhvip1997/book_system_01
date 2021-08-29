@@ -8,6 +8,7 @@ use App\Models\Book;
 use App\Models\Book_category;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\TagBook;
 use Illuminate\Support\Str;
 use App\Http\Requests\BookRequest;
 use App\Library\Services\Contracts\UploadimageServiceInterface; 
@@ -139,8 +140,7 @@ class BookController extends Controller
         $categorybooks = Book_Category::where('book_id','=',$bookid)->get();
         $categorys = $request->input('category_id');
         $categoryvalue=[];
-        // $tagbooks = DB::table('tag_book')->where('book_id','=',$bookid)->get();
-        $tagbooks = $book->tags;
+        $tagbooks = TagBook::where('book_id','=',$bookid)->get();
         $tags = $request->input('tag_id');
         $tagvalue=[];
         foreach($categorybooks as $categorybook){
@@ -168,7 +168,7 @@ class BookController extends Controller
             if(!in_array($tag,$tagvalue)){
                 DB::beginTransaction();
                 try{
-                    $tagbook = DB::table('tag_book')->insert([
+                    $tagbook = DB::table('booktags')->insert([
                         'book_id' => $book->id,
                         'tag_id' => $tag,
                     ]);
@@ -199,7 +199,7 @@ class BookController extends Controller
             if(!in_array($value,$tags)){
                 DB::beginTransaction();
                 try{
-                    $tagbook = DB::table('tag_book')->where([
+                    $tagbook = DB::table('booktags')->where([
                         ['book_id' ,'=', $bookid],
                         ['tag_id', '=', $value]
                     ])->delete();

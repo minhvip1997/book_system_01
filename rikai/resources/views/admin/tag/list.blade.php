@@ -5,6 +5,13 @@
       <div class="card">
          <div class="card-body">
             <h4 class="card-title">{{__('message.Category_Book')}}</h4>
+            <div class="display-inline-block float-right">
+          <label for="cart-status">{{ __('message.status') }}</label>
+          <select name="status" id="tag-status">
+            <option value="week" {{ $date =='week'?'selected':'' }}>{{ __('message.weeks') }}</option>
+            <option value="month" {{ $date =='month'?'selected':'' }}>{{ __('message.month') }}</option>
+          </select>
+        </div>
             <div class="table-responsive">
                <table class="table">
                   <thead>

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Book_Category;
 use CartItem;
+use App\Models\TagBook;
+use App\Models\Tag;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Nicolaslopezj\Searchable\SearchableTrait;
@@ -61,6 +63,15 @@ class Book extends Model
     }
 
     public function tags(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class,'tag');
+    }
+
+    public function bookTag() {
+        return $this->hasMany(TagBook::class,'book_id');
+    }
+
+    public function scopeSearchTag($query,$tagid){
+        return $query->join('booktags','book.id','=','booktags.book_id')
+        ->join('tag','tag.id','=','booktags.tag_id')->where('booktags.tag_id','=',$tagid);
     }
 }

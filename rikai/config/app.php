@@ -182,6 +182,7 @@ return [
         App\Providers\ActivityServiceProvider::class,
         App\Providers\CartServiceProvider::class,
         App\Providers\UploadimageServiceProvider::class,
+        App\Providers\TagServiceProvider::class,
     ],
 
     /*

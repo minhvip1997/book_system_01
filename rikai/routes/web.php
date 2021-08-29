@@ -54,7 +54,7 @@ Route::get('/callbackgoogle', 'App\Http\Controllers\Auth\LoginController@handleP
 Route::get('/redirectfacebook', 'App\Http\Controllers\FbController@redirectToFacebook')->name("login.facebook");
 Route::get('/callbackfacebook', 'App\Http\Controllers\FbController@facebookSignin');
 Route::get('full-text-search',[BookController1::class, 'fulltextsearch'])->name('full.text.search');
-
+Route::get('tag/{id}', [BookController1::class,'searchtag'])->name('search.tag');
 
 
 Route::middleware(['users'])->group(function () {
@@ -110,6 +110,7 @@ Route::group(['prefix'=>'admin','middleware' => ['admin']], function(){
     Route::resource('chart',ChartController2::class)->only('index');
     Route::get('export', [ChartController2::class, 'export'])->name('chart.export');
     Route::get('exportorder', [ChartController2::class, 'exportorder'])->name('chart.exportorder');
+    Route::get('tag/type/{type}',[TagController2::class,'tagTime'])->name('admin.tag.type');
 });
 Route::get('admin/login',[LoginController2::class,'index'])->name('admin.index');
 Route::post('admin/login', [LoginController2::class, 'postLogin'])->name('admin.login');

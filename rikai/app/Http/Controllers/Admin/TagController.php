@@ -6,10 +6,17 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Tag;
+use App\Library\Services\Contracts\TagServiceInterface;
 use App\Http\Requests\TagRequest;
+use App\Enums\Time;
 
 class TagController extends Controller
 {
+    public function __construct(TagServiceInterface $tagServiceInterface)
+    {
+        $this->tagService = $tagServiceInterface;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,8 +25,10 @@ class TagController extends Controller
     public function index()
     {
         //
-        $tags = Tag::all();
-        return view('admin.tag.list',compact('tags'));
+        // $tags = Tag::all();
+        $date = Time::Week;
+        $tags = $this->tagService->getTag($date);
+        return view('admin.tag.list',compact('tags','date'));
     }
 
     /**
@@ -123,5 +132,12 @@ class TagController extends Controller
             $errors = 'message.no_category';
             return redirect()->route('homeadmin.index')->withErrors(__($errors));
         }
+    }
+
+    public function tagTime($time)
+    {
+        $tags = $this->tagService->getTag($time);
+        $date = $time;
+        return view('admin.tag.list',compact('tags','date'));
     }
 }

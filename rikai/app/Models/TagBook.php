@@ -9,7 +9,7 @@ class TagBook extends Model
 {
     use HasFactory;
 
-    protected $table = "tag_book";
+    protected $table = "booktags";
     public $timestamps = false;
     protected $fillable = [
         'book_id',
