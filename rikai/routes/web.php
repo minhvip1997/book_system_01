@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\ProfileController as ProfileController2;
 use App\Http\Controllers\Admin\CartController as CartController2;
 use App\Http\Controllers\Admin\LoginController as LoginController2;
 use App\Http\Controllers\Admin\ChartController as ChartController2;
+use App\Http\Controllers\Admin\TagController as TagController2;
 
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ChangeController as ChangeController1;
@@ -95,6 +96,7 @@ Route::group(['prefix'=>'admin','middleware' => ['admin']], function(){
     Route::resource('category',CategoryController1::class);
     Route::resource('user',UserController2::class);
     Route::resource('profileadmin',ProfileController2::class);
+    Route::resource('tag', TagController2::class);
     Route::post('search/user', [UserController2::class, 'search'])->name('admin.user.search');
     Route::resource('cart',CartController2::class);
     Route::get('cart/type/{type}',[CartController2::class,'cartType'])->name('admin.cart.type');
@@ -104,6 +106,7 @@ Route::group(['prefix'=>'admin','middleware' => ['admin']], function(){
     Route::get('book/{bookid}/delete', [BookController2::class, 'destroy'])->name('deletebook');
     Route::get('cart/{id}/delete', [CartController2::class, 'destroy'])->name('deletecart');
     Route::get('user/{id}/delete', [UserController2::class, 'destroy'])->name('deleteuser');
+    Route::get('tag/{id}/delete', [TagController2::class, 'destroy'])->name('deletetag');
     Route::resource('chart',ChartController2::class)->only('index');
     Route::get('export', [ChartController2::class, 'export'])->name('chart.export');
     Route::get('exportorder', [ChartController2::class, 'exportorder'])->name('chart.exportorder');

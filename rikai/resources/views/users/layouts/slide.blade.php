@@ -16,7 +16,7 @@
                </div>
                <div class="title-in">
                   <div class="cate">
-                     <span class="blue"><a href="#">{{__('message.'.$item->categorys[0]->title)}}</a></span>
+                     <span class="blue"><a href="#">{{__('message.'.$item->categorys()->value('title'))}}</a></span>
                   </div>
                   <h6><a href="{{url('book/'.$item->id)}}">{{ $item->title }}</a></h6>
                   <p><i class="ion-android-star"></i><span>{{$item->rate}}</span> /10</p>

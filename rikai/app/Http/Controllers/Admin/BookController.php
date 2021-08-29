@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Book;
 use App\Models\Book_category;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Support\Str;
 use App\Http\Requests\BookRequest;
 use App\Library\Services\Contracts\UploadimageServiceInterface; 
@@ -43,8 +44,9 @@ class BookController extends Controller
     public function create()
     {
         //
+        $tags = Tag::all();
         $categorys = Category::where('parent_id','=','0')->get();
-        return view('admin.book.add',compact('categorys'));
+        return view('admin.book.add',compact('categorys','tags'));
     }
 
     /**
@@ -66,6 +68,20 @@ class BookController extends Controller
                 $bookcategory = DB::table('book_category')->insert([
                     'book_id' => $book->id,
                     'category_id' => $category,
+                ]);
+                DB::commit();
+            } catch(Exception $e) {
+                DB::rollBack();
+                throw new Exception($e->getMessage());
+            }
+        }
+        $tags = $request->input('tag_id');
+        foreach($tags as $tag){
+            DB::beginTransaction();
+            try{
+                $booktag = DB::table('tag_book')->insert([
+                    'book_id' => $book->id,
+                    'tag_id' => $tag,
                 ]);
                 DB::commit();
             } catch(Exception $e) {
@@ -104,7 +120,8 @@ class BookController extends Controller
         //
         $book = $this->findBook($bookid);
         $category = Category::all();
-        return view('admin.book.edit',compact('book','category'));
+        $tag = Tag::all();
+        return view('admin.book.edit',compact('book','category','tag'));
     }
 
     /**
@@ -122,8 +139,15 @@ class BookController extends Controller
         $categorybooks = Book_Category::where('book_id','=',$bookid)->get();
         $categorys = $request->input('category_id');
         $categoryvalue=[];
+        // $tagbooks = DB::table('tag_book')->where('book_id','=',$bookid)->get();
+        $tagbooks = $book->tags;
+        $tags = $request->input('tag_id');
+        $tagvalue=[];
         foreach($categorybooks as $categorybook){
             $categoryvalue[] = $categorybook['category_id'];
+        }
+        foreach($tagbooks as $tagbook){
+            $tagvalue[] = $tagbook['tag_id'];
         }
         foreach($categorys as $category){
             if(!in_array($category,$categoryvalue)){
@@ -140,6 +164,21 @@ class BookController extends Controller
                 }
             }
         }
+        foreach($tags as $tag){
+            if(!in_array($tag,$tagvalue)){
+                DB::beginTransaction();
+                try{
+                    $tagbook = DB::table('tag_book')->insert([
+                        'book_id' => $book->id,
+                        'tag_id' => $tag,
+                    ]);
+                    DB::commit();
+                } catch(Exception $e){
+                    DB::rollBack();
+                    throw new Exception($e->getMessage());
+                }
+            }
+        }
         foreach($categoryvalue as $value){
             if(!in_array($value,$categorys)){
                 DB::beginTransaction();
@@ -147,6 +186,22 @@ class BookController extends Controller
                     $bookcategory = DB::table('book_category')->where([
                         ['book_id' ,'=', $bookid],
                         ['category_id', '=', $value]
+                    ])->delete();
+                    DB::commit();
+                } catch(Exception $e){
+                    DB::rollBack();
+                    throw new Exception($e->getMessage());
+                }
+            }
+        }
+        //tag
+        foreach($tagvalue as $value){
+            if(!in_array($value,$tags)){
+                DB::beginTransaction();
+                try{
+                    $tagbook = DB::table('tag_book')->where([
+                        ['book_id' ,'=', $bookid],
+                        ['tag_id', '=', $value]
                     ])->delete();
                     DB::commit();
                 } catch(Exception $e){

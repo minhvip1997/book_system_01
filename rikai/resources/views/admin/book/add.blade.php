@@ -36,6 +36,14 @@
                   </select>
                </div>
                <div class="form-group">
+                  <label for="exampleSelectGender">{{__('message.Name_Category')}}</label>
+                  <select class="form-control" name="tag_id[]" id="categorySelect2" multiple>
+                     @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                     @endforeach
+                  </select>
+               </div>
+               <div class="form-group">
                   <label>{{__('message.Image')}}</label>
                   <input type="file" name="image" class="file-upload-default">
                   <div class="input-group col-xs-12">

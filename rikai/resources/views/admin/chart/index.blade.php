@@ -61,16 +61,8 @@
 <div class="d-flex align-items-center pt-20 pb-20">
   <span class="dot-indicator bg-primary"></span>
   <a class="btn btn-primary" href="{{route('chart.export')}}">{{__('message.export')}}</a>
-<<<<<<< HEAD
-<<<<<<< HEAD
   <span class="dot-indicator bg-primary"></span>
   <a class="btn btn-danger" href="{{route('chart.exportorder')}}">{{__('message.exportorder')}}</a>
-=======
->>>>>>> f00af71 (create multiple level category)
-=======
-  <span class="dot-indicator bg-primary"></span>
-  <a class="btn btn-danger" href="{{route('chart.exportorder')}}">{{__('message.export')}}</a>
->>>>>>> 3d0566b (hide negative review and comment)
 </div>
 <div class="row">
   <div class="col-md-12 grid-margin">

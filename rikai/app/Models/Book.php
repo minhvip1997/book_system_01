@@ -59,4 +59,8 @@ class Book extends Model
     public function categorys(){
         return $this->belongsToMany(Category::class);
     }
+
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
 }

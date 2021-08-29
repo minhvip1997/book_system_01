@@ -231,6 +231,19 @@
                   @endforeach                  
                   <a href="{{ route('listuser') }}" class="btn">{{__('message.List_User')}}<i class="ion-ios-arrow-right"></i></a>
                </div>
+               <div class="celebrities">
+                  <h4 class="sb-title">{{__('message.Tag')}}</h4>
+                  @foreach ($tags as $tag)
+                  <div class="celeb-item">
+                     <!-- <a href="{{ url('profile/'.$item->id) }}"><img src="{{ imgSrc($item->image) }}" class="small-user-image" width="70" height="70"></a>
+                     <div class="celeb-author"> -->
+                        <h6><a href="{{ url('profile/'.$tag->id) }}">{{ $tag->name }}</a></h6>
+                        <!-- <span>{{ $item->email }}</span> -->
+                     <!-- </div> -->
+                  </div>
+                  @endforeach                  
+                  <a href="{{ route('listuser') }}" class="btn">{{__('message.List_User')}}<i class="ion-ios-arrow-right"></i></a>
+               </div>
             </div>
          </div>
       </div>
